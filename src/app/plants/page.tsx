@@ -1,24 +1,20 @@
-import { Plant, columns } from "./columns";
-import { DataTable } from "@/components/common/data-table/data-table";
-import { PLANTS_URL } from "@/constants";
-import { useEffect, useState } from "react";
+import { Suspense } from "react";
+import { useAtomValue } from "jotai";
 
-async function getPlantsData() {
-  const res = await fetch(PLANTS_URL);
-  const data = await res.json();
-  return data;
-}
+import { DataTable } from "@/components/common/data-table/data-table";
+
+import { columns } from "./columns";
+import { plantsAtom } from "./plants-molecule";
+
 
 export default function PlantsPage() {
-  const [plants, setPlants] = useState<Plant[]>([]);
-
-  useEffect(() => {
-    getPlantsData().then((data) => setPlants(data));
-  }, []);
+  const plants = useAtomValue(plantsAtom);
 
   return (
     <div className="container mx-auto py-10">
-        <DataTable columns={columns} data={plants} />
+        <Suspense fallback={<div>Loading Plants...</div>}>
+          <DataTable columns={columns} data={plants} />
+        </Suspense>
     </div>
   );
 }

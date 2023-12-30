@@ -61,6 +61,6 @@ export function detectStringCasing(str: string) {
 }
 
 const RE_REG_EXP_CHARS = /[\\^$.*+?()[\]{}|]/g;
-export function escapeRegExp(string) {
+export function escapeRegExp(string: string) {
   return string && string.replace(RE_REG_EXP_CHARS, '\\$&') || ''
 }

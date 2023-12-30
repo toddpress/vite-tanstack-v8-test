@@ -20,3 +20,47 @@ export function getRandomColor() {
   const hexColor = Math.floor(Math.random() * WHITE_IN_BASE_10).toString(16);
   return '#' + hexColor;
 }
+
+/*
+CASE UTILS
+*/
+
+export const caseTypes = {
+  CAMEL: 'CAMEL',
+  KEBAB: 'KEBAB',
+  PASCAL: 'PASCAL',
+  SPACE: 'SPACE',
+  UNKNOWN: 'UNKNOWN',
+};
+
+export function camelToKebab(str: string) {
+  return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+export function kebabToCamel(str: string) {
+  return str.replace(/-./g, match => match.charAt(1).toUpperCase());
+}
+
+export const hasSpace = (str: string) => /\s/.test(str);
+export const isKebab = (str: string) => /-/.test(str);
+export const isPascal = (str: string) => /^[A-Z][a-z]+(?:[A-Z][a-z]+)*$/.test(str);
+export const isCamel = (str: string) => /^[a-z]+(?:[A-Z][a-z]*)*$/.test(str);
+
+export function detectStringCasing(str: string) {
+  if (hasSpace(str)) {
+      return caseTypes.SPACE
+  } else if (isKebab(str)) {
+      return caseTypes.KEBAB
+  } else if (isPascal(str)) {
+      return caseTypes.PASCAL
+  } else if (isCamel(str)) {
+      return caseTypes.CAMEL
+  } else {
+      return caseTypes.UNKNOWN
+  }
+}
+
+const RE_REG_EXP_CHARS = /[\\^$.*+?()[\]{}|]/g;
+export function escapeRegExp(string) {
+  return string && string.replace(RE_REG_EXP_CHARS, '\\$&') || ''
+}

@@ -1,5 +1,5 @@
 import { Plant, columns } from "./columns";
-import { DataTable } from "@/components/common/data-table";
+import { DataTable } from "@/components/common/data-table/data-table";
 import { PLANTS_URL } from "@/constants";
 import { useEffect, useState } from "react";
 

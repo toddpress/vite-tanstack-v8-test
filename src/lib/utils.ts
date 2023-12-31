@@ -1,3 +1,4 @@
+import { match } from "assert";
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -39,6 +40,18 @@ export function camelToKebab(str: string) {
 
 export function kebabToCamel(str: string) {
   return str.replace(/-./g, match => match.charAt(1).toUpperCase());
+}
+
+export function toPascalCase(str: string) {
+  return str.replace(/(^\w|-\w)/g, match => match.charAt(match.length - 1).toUpperCase());
+}
+
+export function toCamelCase(str: string, sourceCase: string) {
+  if (sourceCase === caseTypes.PASCAL) {
+      return str.charAt(0).toLowerCase() + str.slice(1);
+  } else {
+      return str.replace(/(^\w|-\w)/g, match => match.charAt(match.length - 1).toUpperCase());
+  }
 }
 
 export const hasSpace = (str: string) => /\s/.test(str);

@@ -1,10 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table'
-import {
-    MoreHorizontal,
-} from 'lucide-react'
+import { MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-
+import { EditableTextCell } from '@/components/common/data-table/cells/editable-cell'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,11 +12,15 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { HighlightableCell, SortToggleHeader } from '@/components/common/data-table'
+import {
+    HighlightableCell,
+    SortToggleHeader,
+} from '@/components/common/data-table'
 import { convertCmToFeet } from '@/lib/utils'
 
 // Define the type for your data
 export type Plant = {
+    id: string
     plantName: string
     scientificName: string
     family: string
@@ -31,7 +33,7 @@ export type Plant = {
     height: number
 }
 
-export const columns: ColumnDef<Plant>[] = [
+export const columns: ColumnDef<unknown>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -90,52 +92,73 @@ export const columns: ColumnDef<Plant>[] = [
     },
     {
         accessorKey: 'plantName',
-        header: ({ column }) => <SortToggleHeader text="Plant Name" column={column} />,
-        cell: HighlightableCell,
+        header: ({ column }) => (
+            <SortToggleHeader text="Plant Name" column={column} />
+        ),
+        cell: EditableTextCell,
     },
     {
         accessorKey: 'scientificName',
-        header: ({ column }) => <SortToggleHeader text="Scientific Name" column={column} />,
-        cell: HighlightableCell,
+        header: ({ column }) => (
+            <SortToggleHeader text="Scientific Name" column={column} />
+        ),
+        // cell: HighlightableCell,
+        cell: EditableTextCell,
     },
     {
         accessorKey: 'family',
-        header: ({ column }) => <SortToggleHeader text="Family" column={column} />,
+        header: ({ column }) => (
+            <SortToggleHeader text="Family" column={column} />
+        ),
         cell: HighlightableCell,
     },
     {
         accessorKey: 'wateringFrequency',
-        header: ({ column }) => <SortToggleHeader text="Watering Frequency" column={column} />,
+        header: ({ column }) => (
+            <SortToggleHeader text="Watering Frequency" column={column} />
+        ),
         cell: HighlightableCell,
     },
     {
         accessorKey: 'lightRequirement',
-        header: ({ column }) => <SortToggleHeader text="Light Requirement" column={column} />,
+        header: ({ column }) => (
+            <SortToggleHeader text="Light Requirement" column={column} />
+        ),
         cell: HighlightableCell,
     },
     {
         accessorKey: 'temperatureRange',
-        header: ({ column }) => <SortToggleHeader text="Temperature Range" column={column} />,
+        header: ({ column }) => (
+            <SortToggleHeader text="Temperature Range" column={column} />
+        ),
         cell: HighlightableCell,
     },
     {
         accessorKey: 'soilType',
-        header: ({ column }) => <SortToggleHeader text="Soil Type" column={column} />,
+        header: ({ column }) => (
+            <SortToggleHeader text="Soil Type" column={column} />
+        ),
         cell: HighlightableCell,
     },
     {
         accessorKey: 'fertilizerFrequency',
-        header: ({ column }) => <SortToggleHeader text="Fertilizer Frequency" column={column} />,
+        header: ({ column }) => (
+            <SortToggleHeader text="Fertilizer Frequency" column={column} />
+        ),
         cell: HighlightableCell,
     },
     {
         accessorKey: 'bloomingSeason',
-        header: ({ column }) => <SortToggleHeader text="Blooming Season" column={column} />,
+        header: ({ column }) => (
+            <SortToggleHeader text="Blooming Season" column={column} />
+        ),
         cell: HighlightableCell,
     },
     {
         accessorKey: 'height',
-        header: ({ column }) => <SortToggleHeader text="Height (cm" column={column} />,
+        header: ({ column }) => (
+            <SortToggleHeader text="Height (cm" column={column} />
+        ),
         cell: ({ row }) => {
             const heightInCm: number = row.getValue('height')
             const height = convertCmToFeet(heightInCm)

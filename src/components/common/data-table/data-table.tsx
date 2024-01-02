@@ -18,6 +18,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
+import { camelToTitleCase } from '@/lib/utils'
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -85,14 +86,25 @@ export function DataTable<TData, TValue>({
                     {table.getRowModel().rows?.length ? (
                         table.getRowModel().rows.map((row) => (
                             <TableRow key={row.id}>
-                                {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext(),
-                                        )}
-                                    </TableCell>
-                                ))}
+                                {row.getVisibleCells().map((cell) => {
+                                    const camelLabel =
+                                        cell.column.columnDef?.accessorKey ||
+                                        cell.column.columnDef?.id ||
+                                        '';
+                                    const cellLabel =
+                                        camelToTitleCase(camelLabel)
+                                    return (
+                                        <TableCell
+                                            data-label={cellLabel || null}
+                                            key={cell.id}
+                                        >
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext(),
+                                            )}
+                                        </TableCell>
+                                    )
+                                })}
                             </TableRow>
                         ))
                     ) : (

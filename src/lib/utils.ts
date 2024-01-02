@@ -43,7 +43,10 @@ export function kebabToCamel(str: string) {
 }
 
 export function toPascalCase(str: string) {
-  return str.replace(/(^\w|-\w)/g, match => match.charAt(match.length - 1).toUpperCase());
+  return str.replace(/(^\w|-\w)/g, match => match.charAt(match.length - 1).toUpperCase())
+}
+export function camelToTitleCase(str: string) {
+  return toPascalCase(str).replace(/([A-Z])/g, ' $1').trim();
 }
 
 export function toCamelCase(str: string, sourceCase: string) {
